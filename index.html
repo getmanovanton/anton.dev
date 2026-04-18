@@ -1033,11 +1033,20 @@
       cards.forEach(c => c.style.cssText = '');
     }
 
-    wrap.addEventListener('touchstart', e => { sx = e.touches[0].clientX; }, {passive:true});
+    let sy = 0, locked = false;
+    wrap.addEventListener('touchstart', e => { sx = e.touches[0].clientX; sy = e.touches[0].clientY; locked = false; }, {passive:true});
+    wrap.addEventListener('touchmove', e => {
+      if (!mobile) return;
+      const dx = Math.abs(e.touches[0].clientX - sx);
+      const dy = Math.abs(e.touches[0].clientY - sy);
+      if (!locked) locked = true;
+      if (dx > dy) e.preventDefault();
+    }, {passive:false});
     wrap.addEventListener('touchend', e => {
       if (!mobile) return;
       const dx = e.changedTouches[0].clientX - sx;
-      if (Math.abs(dx) > 40) {
+      const dy = e.changedTouches[0].clientY - sy;
+      if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
         if (dx < 0 && active < cards.length-1) active++;
         else if (dx > 0 && active > 0) active--;
         update();
@@ -1098,12 +1107,19 @@
       cards.forEach(c => c.style.cssText = '');
     }
 
-    let sx = 0;
-    wrap.addEventListener('touchstart', e => { sx = e.touches[0].clientX; }, {passive:true});
+    let sx = 0, sy2 = 0;
+    wrap.addEventListener('touchstart', e => { sx = e.touches[0].clientX; sy2 = e.touches[0].clientY; }, {passive:true});
+    wrap.addEventListener('touchmove', e => {
+      if (!mobile) return;
+      const dx = Math.abs(e.touches[0].clientX - sx);
+      const dy = Math.abs(e.touches[0].clientY - sy2);
+      if (dx > dy) e.preventDefault();
+    }, {passive:false});
     wrap.addEventListener('touchend', e => {
       if (!mobile) return;
       const dx = e.changedTouches[0].clientX - sx;
-      if (Math.abs(dx) > 40) {
+      const dy = e.changedTouches[0].clientY - sy2;
+      if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
         if (dx < 0 && active < cards.length - 1) active++;
         else if (dx > 0 && active > 0) active--;
         update();
