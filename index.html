@@ -277,7 +277,8 @@
   .price.featured .pcta:hover{background:var(--fg);color:var(--bg);border-color:var(--fg)}
 
   /* ---------- WHY ---------- */
-  .why{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .why{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  @media (max-width: 1100px){.why{grid-template-columns:repeat(2,1fr)}}
   @media (max-width: 820px){.why{grid-template-columns:1fr}}
   .why-card{padding:28px;border:1px solid var(--line);border-radius:var(--r);background:var(--bg-2);display:flex;flex-direction:column;gap:14px;min-height:200px}
   .why-card .nu{font-size:34px;font-weight:500;letter-spacing:-.02em;color:var(--accent)}
@@ -550,7 +551,7 @@
     <div class="steps rs" id="steps">
       <div class="step"><span class="nu">Step 01</span><h4>Brief</h4><p>30-min call. Map your business, audience and goals.</p><span class="dur">2 — 3 days</span></div>
       <div class="step"><span class="nu">Step 02</span><h4>Design</h4><p>Wireframes, then full visual design in Figma.</p><span class="dur">5 — 8 days</span></div>
-      <div class="step"><span class="nu">Step 03</span><h4>Development</h4><p>Hand-coded build, mobile-first, daily preview link.</p><span class="dur">7 — 12 days</span></div>
+      <div class="step"><span class="nu">Step 03</span><h4>Development</h4><p>Hand-coded build, mobile-first, daily preview link. AI-assisted testing across browsers and edge cases.</p><span class="dur">7 — 12 days</span></div>
       <div class="step"><span class="nu">Step 04</span><h4>Animations</h4><p>Custom scroll, hover and micro-interactions.</p><span class="dur">3 — 5 days</span></div>
       <div class="step"><span class="nu">Step 05</span><h4>Launch</h4><p>Domain, SSL, hosting, analytics — all configured.</p><span class="dur">1 — 2 days</span></div>
     </div>
@@ -642,6 +643,11 @@
         <div class="nu">03</div>
         <h3>Full-cycle</h3>
         <p>One point of contact for design, code, animation and aftercare. No agency overhead.</p>
+      </div>
+      <div class="why-card">
+        <div class="nu">04</div>
+        <h3>AI-powered testing</h3>
+        <p>I use Claude and ChatGPT to stress-test layouts, catch edge cases and review code quality before every launch.</p>
       </div>
     </div>
   </div>
