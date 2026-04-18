@@ -246,6 +246,13 @@
   .step p{font-size:13px;color:var(--fg-dim);line-height:1.45}
   .step .dur{font-family:var(--mono);font-size:10px;color:var(--fg-mute);margin-top:auto}
 
+  @property --ba {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+  }
+  @keyframes border-spin { to { --ba: 360deg; } }
+
   /* ---------- PRICING ---------- */
   .pricing{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
   @media (max-width: 900px){.pricing{grid-template-columns:1fr}}
@@ -255,7 +262,13 @@
     transition:border-color .25s;
   }
   .price:hover{border-color:var(--line-2)}
-  .price.featured{border-color:var(--accent);background:linear-gradient(180deg, rgba(255,92,40,.06), transparent 50%)}
+  .price.featured{
+    border-color: transparent;
+    background:
+      linear-gradient(var(--bg-2), var(--bg-2)) padding-box,
+      conic-gradient(from var(--ba), transparent 0%, transparent 70%, #00e676 82%, #fff 86%, #00e676 90%, transparent 100%) border-box;
+    animation: border-spin 3s linear infinite;
+  }
   .price-head{display:flex;justify-content:space-between;align-items:flex-start}
   .price h3{font-size:18px;font-weight:500;letter-spacing:-.01em}
   .price .pdesc{font-size:13px;color:var(--fg-dim);line-height:1.5;margin-top:6px}
