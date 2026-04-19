@@ -1009,11 +1009,13 @@
   /* progress + btt */
   const sp = document.getElementById('progress');
   const btt = document.getElementById('btt');
+  const markEl = document.querySelector('.nav-brand .mark');
   const onScroll = () => {
     const h = document.documentElement;
     const max = h.scrollHeight - h.clientHeight;
     sp.style.width = max>0 ? ((h.scrollTop/max)*100)+'%' : '0%';
     btt.classList.toggle('show', h.scrollTop > 400);
+    if (markEl && max > 0) markEl.style.transform = `rotate(${(h.scrollTop/max)*360}deg)`;
     updateSteps();
   };
   window.addEventListener('scroll', onScroll, {passive:true});
