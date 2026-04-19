@@ -515,12 +515,6 @@
   .mf-opt:hover{background:var(--bg-3);color:var(--fg)}
   .mf-opt.active{color:var(--accent);background:var(--accent-soft)}
   .mf-reveal{display:none;animation:fadeIn .2s var(--ease)}
-  .mf-file-zone{border:1px dashed var(--line-2);border-radius:8px;padding:16px 14px;cursor:pointer;transition:border-color .2s;text-align:center}
-  .mf-file-zone:hover{border-color:var(--accent)}
-  .mf-file-zone input[type="file"]{display:none}
-  .mf-file-zone .mf-file-hint{font-size:13px;color:var(--fg-mute)}
-  .mf-file-zone .mf-file-hint span{color:var(--accent)}
-  .mf-file-chosen{font-family:var(--mono);font-size:11px;color:var(--accent);margin-top:6px;display:none}
 
   /* ---------- SUCCESS MODAL ---------- */
   .success-overlay{position:fixed;inset:0;background:rgba(0,0,0,.82);backdrop-filter:blur(18px);z-index:500;display:none;align-items:center;justify-content:center;padding:20px}
@@ -1110,12 +1104,9 @@
         </div>
       </div>
       <div class="mf-group mf-reveal" id="mf-logo-group">
-        <label>Upload your logo (optional)</label>
-        <div class="mf-file-zone" onclick="document.getElementById('mf-logo-input').click()">
-          <input type="file" name="logo" id="mf-logo-input" accept="image/*,.svg,.pdf,.eps,.ai">
-          <p class="mf-file-hint"><span>Click to upload</span> — PNG, SVG, PDF, AI</p>
-          <p class="mf-file-chosen" id="mf-file-chosen"></p>
-        </div>
+        <label>Share your logo — paste a link (optional)</label>
+        <input type="text" name="logo_link" placeholder="Google Drive / Dropbox / WeTransfer link…"/>
+        <span style="font-family:var(--mono);font-size:11px;color:var(--fg-mute);margin-top:5px;display:block">Or just email it after: <span style="color:var(--fg-dim)">getmanovanton11@gmail.com</span></span>
       </div>
       <div class="mf-group">
         <label>Any websites whose style you like? (optional)</label>
@@ -1497,15 +1488,7 @@
     });
   });
 
-  document.getElementById('mf-logo-input').addEventListener('change', function() {
-    const label = document.getElementById('mf-file-chosen');
-    if (this.files && this.files[0]) {
-      label.textContent = '✓ ' + this.files[0].name;
-      label.style.display = 'block';
-    }
-  });
-
-  /* mockup modal */
+/* mockup modal */
   function openMockupModal() {
     document.getElementById('mockup-overlay').classList.add('open');
     document.body.style.overflow = 'hidden';
