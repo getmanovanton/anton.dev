@@ -496,6 +496,13 @@
   .mf-submit:hover{background:var(--accent);transform:translateY(-2px);box-shadow:0 0 0 2px rgba(0,230,118,.5),0 8px 22px rgba(0,230,118,.2)}
   .mf-privacy{display:flex;align-items:flex-start;gap:8px;font-family:var(--mono);font-size:11px;color:var(--fg-mute);cursor:pointer;margin-top:12px}
   .mf-privacy input{margin-top:2px;accent-color:var(--accent);flex-shrink:0}
+  .mf-reveal{display:none;animation:fadeIn .2s var(--ease)}
+  .mf-file-zone{border:1px dashed var(--line-2);border-radius:8px;padding:16px 14px;cursor:pointer;transition:border-color .2s;text-align:center}
+  .mf-file-zone:hover{border-color:var(--accent)}
+  .mf-file-zone input[type="file"]{display:none}
+  .mf-file-zone .mf-file-hint{font-size:13px;color:var(--fg-mute)}
+  .mf-file-zone .mf-file-hint span{color:var(--accent)}
+  .mf-file-chosen{font-family:var(--mono);font-size:11px;color:var(--accent);margin-top:6px;display:none}
 
   /* ---------- SUCCESS MODAL ---------- */
   .success-overlay{position:fixed;inset:0;background:rgba(0,0,0,.82);backdrop-filter:blur(18px);z-index:500;display:none;align-items:center;justify-content:center;padding:20px}
@@ -1036,7 +1043,7 @@
       </div>
       <div class="mf-group">
         <label>Business type *</label>
-        <select name="business_type" required>
+        <select name="business_type" id="mf-biz-type" required>
           <option value="" disabled selected>Select your industry…</option>
           <option>Barbershop</option>
           <option>Hair Salon / Spa</option>
@@ -1046,8 +1053,12 @@
           <option>Fitness / Yoga / Studio</option>
           <option>Retail / Boutique</option>
           <option>Medical / Dental / Beauty</option>
-          <option>Other</option>
+          <option value="Other">Other</option>
         </select>
+      </div>
+      <div class="mf-group mf-reveal" id="mf-other-group">
+        <label>Describe your business *</label>
+        <input type="text" name="business_other" id="mf-other-input" placeholder="e.g. Tattoo studio, dog grooming…"/>
       </div>
       <div class="mf-group">
         <label>Your email * (we'll send the mockup here)</label>
@@ -1069,9 +1080,17 @@
       <div class="mf-group" style="margin-top:14px">
         <label>Do you have a logo?</label>
         <div class="mf-radios">
-          <label class="mf-radio"><input type="radio" name="has_logo" value="Yes"> Yes</label>
+          <label class="mf-radio"><input type="radio" name="has_logo" value="Yes" id="mf-logo-yes"> Yes</label>
           <label class="mf-radio"><input type="radio" name="has_logo" value="No"> No</label>
           <label class="mf-radio"><input type="radio" name="has_logo" value="In progress"> In progress</label>
+        </div>
+      </div>
+      <div class="mf-group mf-reveal" id="mf-logo-group">
+        <label>Upload your logo (optional)</label>
+        <div class="mf-file-zone" onclick="document.getElementById('mf-logo-input').click()">
+          <input type="file" name="logo" id="mf-logo-input" accept="image/*,.svg,.pdf,.eps,.ai">
+          <p class="mf-file-hint"><span>Click to upload</span> — PNG, SVG, PDF, AI</p>
+          <p class="mf-file-chosen" id="mf-file-chosen"></p>
         </div>
       </div>
       <div class="mf-group">
@@ -1415,6 +1434,30 @@
     check();
     window.addEventListener('resize', check);
   })();
+
+  /* mockup conditional fields */
+  document.getElementById('mf-biz-type').addEventListener('change', function() {
+    const g = document.getElementById('mf-other-group');
+    const inp = document.getElementById('mf-other-input');
+    const show = this.value === 'Other';
+    g.style.display = show ? 'block' : 'none';
+    inp.required = show;
+  });
+
+  document.querySelectorAll('[name="has_logo"]').forEach(r => {
+    r.addEventListener('change', function() {
+      const g = document.getElementById('mf-logo-group');
+      g.style.display = this.value === 'Yes' ? 'block' : 'none';
+    });
+  });
+
+  document.getElementById('mf-logo-input').addEventListener('change', function() {
+    const label = document.getElementById('mf-file-chosen');
+    if (this.files && this.files[0]) {
+      label.textContent = '✓ ' + this.files[0].name;
+      label.style.display = 'block';
+    }
+  });
 
   /* mockup modal */
   function openMockupModal() {
