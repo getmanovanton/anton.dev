@@ -479,11 +479,14 @@
     transition:border-color .2s;width:100%;
   }
   .mf-group select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4' stroke='%235a5a5a' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
-  .mf-group input:focus,.mf-group textarea:focus,.mf-group select:focus{outline:0;border-color:var(--accent)}
+  .mf-group input:focus,.mf-group textarea:focus,.mf-group select:focus{outline:none;box-shadow:none;border-color:var(--accent)}
+  .mf-group select:focus-visible{outline:none}
+  .mf-group select option{background:var(--bg-2);color:var(--fg);cursor:pointer}
   .mf-group textarea{resize:vertical;min-height:64px}
   .mf-checks{display:flex;flex-direction:column;gap:10px}
   .mf-check{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--fg-dim);cursor:pointer;line-height:1.4}
-  .mf-check input{accent-color:var(--accent);flex-shrink:0;width:15px;height:15px}
+  .mf-check input{accent-color:var(--accent);flex-shrink:0;width:15px;height:15px;cursor:pointer}
+  .mf-radio input{cursor:pointer}
   .mf-radios{display:flex;gap:8px;flex-wrap:wrap}
   .mf-radio{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--fg-dim);cursor:pointer;padding:7px 14px;border:1px solid var(--line);border-radius:8px;transition:border-color .2s,color .2s;position:relative}
   .mf-radio:has(input:checked){border-color:var(--accent);color:var(--accent)}
